@@ -510,44 +510,46 @@ namespace UCL
         /// Sterge toate echipele care au fost eliminate
         /// </summary>
 
-        public static void DeleteTeamById(long id)
+        public static void DeleteEliminatedTeams()
         {
-            var teamToDelete = ctx.Teams.Where(x => x.Id == id).FirstOrDefault();
-            if (teamToDelete != null)
+            var teamsToDelete = ctx.Teams.Where(x => x.Eliminated == true).ToList();
+            if (teamsToDelete.Any())
             {
-                Console.WriteLine("S-a sters echipa: ");
-                
+                Console.WriteLine("S-au sters echipele: ");
+                foreach (var item in teamsToDelete)
+                {
                     //cascade delete este dezactivat
                     //am ales sa nu sterg toate entitatile legate de echipa care urmeaza sa fie stearsa si am pus null la FK-urile asociate
                     //doar stadionul l-am scos
-                    foreach (var player in teamToDelete.Players)
+                    foreach (var player in item.Players)
                     {
                         player.TeamId = null;
                     }
-                    foreach (var coach in teamToDelete.Coaches)
+                    foreach (var coach in item.Coaches)
                     {
                         coach.TeamId = null;
                     }
 
-                    var stadium = ctx.Stadiums.Where(x => x.TeamId == teamToDelete.Id).FirstOrDefault();
+                    var stadium = ctx.Stadiums.Where(x => x.TeamId == item.Id).FirstOrDefault();
                     ctx.Stadiums.Remove(stadium);
 
-                    foreach (var matchAtHome in teamToDelete.MatchesPlayedAtHome)
+                    foreach (var matchAtHome in item.MatchesPlayedAtHome)
                     {
                         matchAtHome.Host = null;
                     }
-                    foreach (var matchAway in teamToDelete.MatchesPlayedAway)
+                    foreach (var matchAway in item.MatchesPlayedAway)
                     {
                         matchAway.Guest = null;
                     }
-                    Console.WriteLine(teamToDelete.Name);
+                    Console.WriteLine(item.Name);
 
-                ctx.Teams.Remove(teamToDelete);
-                ctx.SaveChanges();
+                    ctx.Teams.Remove(item);
+                    ctx.SaveChanges();
+                }
             }
             else
             {
-                Console.WriteLine("Nu exista echipa introdusa!");
+                Console.WriteLine("Nu exista echipe eliminate!");
             }
         }
         #endregion

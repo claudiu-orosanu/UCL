@@ -53,16 +53,25 @@ namespace UCL
 
 
             //Console.WriteLine("\n\n");
-            ////procedura stocata transfera un jucator la o anumita echipa, salariul acestuia e egal cu media salariilor din acea echipa
-            ////transferam pe Mario Gotze de la bayern la real madrid
-            //DbFunctions.ExecuteTransferProcedure(23, 1);
+            //DbFunctions.DeleteEliminatedTeams();
+            //Console.WriteLine("\nDupa stergere:");
+            //Console.WriteLine("Echipe:");
+            //DbFunctions.ShowTeams();
+            //Console.WriteLine("\nStadioane:");
+            //DbFunctions.ShowStadiums();
+            //Console.WriteLine();
+            //DbFunctions.ShowPlayersWithTeam();
+            //Console.WriteLine("\nAntrenori");
+            //DbFunctions.ShowCoaches();
+            //Console.WriteLine("\nMeciuri:");
+            //DbFunctions.ShowMatches();
+            //Console.WriteLine();
 
 
             //Console.WriteLine("\n\n");
-            ////sterge echipa cu id-ul 3 (bayern)
-            //DbFunctions.DeleteTeamById(3);
-            //Console.WriteLine("\n");
-            //DbFunctions.ShowTeams();
+            ////procedura stocata transfera un jucator la o anumita echipa, salariul acestuia e egal cu media salariilor din acea echipa
+            ////transferam pe Toni Kroos de la Real madrid la Atletico madrid
+            //DbFunctions.ExecuteTransferProcedure(17, 9);
 
             Console.ReadKey();
         }
